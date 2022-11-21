@@ -26,17 +26,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
         if: github.event_name != 'pull_request'
-      - uses: docker/metadata-action@v4
-        id: meta
-        with:
-          images: tootsuite/mastodon
-          flavor: |
-            latest=auto
-          tags: |
-            type=edge,branch=main
-            type=pep440,pattern={{raw}}
-            type=pep440,pattern=v{{major}}.{{minor}}
-            type=ref,event=pr
       - uses: docker/build-push-action@v3
         with:
           context: .
